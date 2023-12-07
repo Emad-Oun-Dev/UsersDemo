@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TatweerDemo</string>
+    <string name="add">Add</string>
+    <string name="done">Done\n</string>
+    <string name="add_new_user_successfully">User added successfully</string>
+    <string name="removed_user_successfully">User removed successfully</string>
+    <string name="delete_user">Are you want to delete user ?</string>
+    <string name="yes">Yes\n</string>
+</resources>
