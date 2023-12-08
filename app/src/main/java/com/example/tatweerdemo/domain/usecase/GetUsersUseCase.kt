@@ -12,8 +12,8 @@ import javax.inject.Inject
  */
 
 class GetUsersUseCase @Inject constructor(
-    private val splashRepository: UsersRepository
+    private val usersRepository: UsersRepository
 ) {
     suspend fun invoke(pageNumber: Int, size: Int): Flow<List<UserItemResponse>> =
-        splashRepository.getUsersList(pageNumber = pageNumber, size = size)
+        usersRepository.getUsersList(pageNumber = pageNumber, size = size)
 }

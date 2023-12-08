@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.example.tatweerdemo.presentation.features.users
 
@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -51,8 +52,8 @@ import com.example.tatweerdemo.R
 import com.example.tatweerdemo.core.base.SIDE_EFFECTS_KEY
 import com.example.tatweerdemo.utils.common.Progress
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 
 /**
  * Created by Emad Mohamed Oun
@@ -76,6 +77,7 @@ fun Users(
                 is UsersSideEffects.ShowErrorMsg -> {
                     Toast.makeText(context, effect.msg, Toast.LENGTH_LONG).show()
                 }
+
                 is UsersSideEffects.ShowSuccessMsg -> {
                     Toast.makeText(context, effect.msg, Toast.LENGTH_LONG).show()
                 }
@@ -87,6 +89,7 @@ fun Users(
         state.isLoading -> {
             Progress()
         }
+
         else -> {}
     }
 
@@ -110,7 +113,8 @@ fun Users(
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp).clickable {
+                            .padding(10.dp)
+                            .clickable {
                                 userItem.id?.let {
                                     deleteUserDialog.value = true
                                 }
@@ -164,7 +168,7 @@ fun Users(
                         DeleteUserDialog(show = deleteUserDialog.value,
                             onConfirm = {
                                 deleteUserDialog.value = false
-                                onEventSent(UsersEvent.DeleteUser(userId = userItem.id?:"" ))
+                                onEventSent(UsersEvent.DeleteUser(userId = userItem.id ?: ""))
                             }, onDismiss = { deleteUserDialog.value = false })
                     }
                 }
@@ -175,7 +179,7 @@ fun Users(
     if (showAddNewUserDialog.value) {
         AddNewUserDialog(show = showAddNewUserDialog.value,
             onConfirm = { name, email ->
-                if (name.isNotBlank() && email.isNotBlank()){
+                if (name.isNotBlank() && email.isNotBlank()) {
                     showAddNewUserDialog.value = false
                     onEventSent(UsersEvent.AddNewUser(name = name, email = email))
                 }
@@ -193,7 +197,7 @@ private fun AddNewUserDialog(
 ) {
     if (show) {
         Dialog(onDismissRequest = onDismiss) {
-            Box(modifier = Modifier.height(350.dp)) {
+            Box {
                 Surface(
                     shape = RoundedCornerShape(10.dp),
                     color = Color.White,
@@ -225,10 +229,10 @@ private fun AddNewUserDialog(
 
                             Spacer(modifier = Modifier.height(10.dp))
 
-                            TextButton(
+                            Button(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 30.dp),
+                                    .padding(horizontal = 30.dp).height(50.dp),
                                 onClick = { onConfirm(name.text, email.text) },
                                 shape = RoundedCornerShape(50),
                                 colors = ButtonDefaults.buttonColors(colorResource(id = R.color.black))
@@ -236,6 +240,7 @@ private fun AddNewUserDialog(
                             {
                                 Text(
                                     color = Color.White,
+                                    textAlign = TextAlign.Center,
                                     text = stringResource(R.string.done).uppercase()
                                 )
                             }
@@ -275,14 +280,15 @@ private fun DeleteUserDialog(
                                 )
                             )
 
-                            Spacer(modifier = Modifier.height(10.dp))
+                            Spacer(modifier = Modifier.height(30.dp))
 
                             TextButton(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(horizontal = 30.dp),
                                 onClick = {
-                                    onConfirm() },
+                                    onConfirm()
+                                },
                                 shape = RoundedCornerShape(50),
                                 colors = ButtonDefaults.buttonColors(colorResource(id = R.color.black))
                             )
@@ -298,7 +304,7 @@ private fun DeleteUserDialog(
             }
         }
     }
- }
+}
 
 @Preview(showBackground = true)
 @Composable

@@ -12,8 +12,8 @@ import javax.inject.Inject
  */
 
 class AddNewUserUseCase @Inject constructor(
-    private val splashRepository: UsersRepository
+    private val usersRepository: UsersRepository
 ) {
     suspend fun invoke(item: UserItemResponse): Flow<UserItemResponse> =
-        splashRepository.addNewUser(item = item)
+        usersRepository.addNewUser(item = item)
 }

@@ -11,8 +11,8 @@ import javax.inject.Inject
  */
 
 class DeleteUserUseCase @Inject constructor(
-    private val splashRepository: UsersRepository
+    private val usersRepository: UsersRepository
 ) {
     suspend fun invoke(userId: String): Flow<Any> =
-        splashRepository.deleteUser(userId = userId)
+        usersRepository.deleteUser(userId = userId)
 }
